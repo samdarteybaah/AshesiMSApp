@@ -1,6 +1,7 @@
 #pragma once
 #include "dbconn.h"
 #include "UserSession.h"
+#include "MainForm.h"
 
 
 namespace AshesiMSApp {
