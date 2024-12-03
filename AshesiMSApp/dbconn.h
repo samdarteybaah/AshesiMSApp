@@ -8,7 +8,7 @@ namespace AshesiMSApp {
     public ref class DatabaseConnection {
     public:
         static MySqlConnection^ GetConnection() {
-            String^ ConnectionString = "datasource=localhost; port=4306; username=root; password=""; database = ashesims; SslMode=None;";
+            String^ ConnectionString = "datasource=localhost; port=3306; username=root; password=""; database = ashesims; SslMode=None;";
             return gcnew MySqlConnection(ConnectionString);
         }
     };

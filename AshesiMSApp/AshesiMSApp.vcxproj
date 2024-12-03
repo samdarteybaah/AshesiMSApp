@@ -125,17 +125,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Course.cpp" />
+    <ClCompile Include="Enrollment.cpp" />
+    <ClCompile Include="Faculty.cpp" />
     <ClCompile Include="LogForm.cpp" />
+    <ClCompile Include="FacultyDashboard.cpp" />
+    <ClCompile Include="AdminDashboard.cpp" />
+    <ClCompile Include="StudentDashboard.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Course.h" />
     <ClInclude Include="dbconn.h" />
+    <ClInclude Include="Enrollment.h" />
+    <ClInclude Include="Faculty.h" />
     <ClInclude Include="LogForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FacultyDashboard.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="AdminDashboard.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="StudentDashboard.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FacultyDashboard.resx">
+      <DependentUpon>FacultyDashboard.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminDashboard.resx">
+      <DependentUpon>AdminDashboard.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentDashboard.resx">
+      <DependentUpon>StudentDashboard.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
