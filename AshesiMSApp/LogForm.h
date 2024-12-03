@@ -1,5 +1,6 @@
 #pragma once
 #include "dbconn.h"
+#include "UserSession.h"
 
 
 namespace AshesiMSApp {
@@ -22,6 +23,7 @@ namespace AshesiMSApp {
 		DataTable^ sqlDt = gcnew DataTable();
 		MySqlDataAdapter^ sqlDta = gcnew MySqlDataAdapter();
 
+	
 	public:
 		MySqlDataReader^ sqlRd;
 		LogForm(void)
@@ -241,12 +243,12 @@ namespace AshesiMSApp {
 		sqlConn->Open();
 		if (sqlConn) { MessageBox::Show("Database connection successful!"); }
 		sqlCmd->Connection = sqlConn;
-		sqlCmd->CommandText = "";
+		/*sqlCmd->CommandText = "";
 		sqlRd = sqlCmd->ExecuteReader();
 		sqlDt->Load(sqlRd);
 		sqlRd->Close();
-		//sqlConn->Close();
-		////dataGridView1->Datasource = sqlDt;
+		sqlConn->Close();
+		dataGridView1->Datasource = sqlDt;*/
 
 	}
 	private: System::Void picbox_login_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -267,6 +269,7 @@ private: System::Void btn_cancel_Click(System::Object^ sender, System::EventArgs
 private: System::Void txt_Email_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void txt_password_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	txt_password->PasswordChar = '*';
 }
 private: System::Void btn_login_Click(System::Object^ sender, System::EventArgs^ e) {
 	sqlConn = AshesiMSApp::DatabaseConnection::GetConnection();
@@ -279,11 +282,41 @@ private: System::Void btn_login_Click(System::Object^ sender, System::EventArgs^
 
 	sqlRd = sqlCmd->ExecuteReader();
 	if (sqlRd->Read()) {
-		MessageBox::Show("Login successful!");
+		int userID = Convert::ToInt32(sqlRd["userID"]);
+		int userRole = Convert::ToInt32(sqlRd["userRole"]);
+		
+		UserSession::StartSession(userID, userRole);
 
-	}else {
+		if (userRole == 1) {
+			MessageBox::Show("Login successful! Welcome Admin.");
+			MainForm^ mainForm = gcnew MainForm();
+			mainForm->Show();
+			this->Hide();
+		}
+		else if (userRole == 2) {
+			MessageBox::Show("Login successful! Welcome Faculty.");
+			MainForm^ mainForm = gcnew MainForm();
+			mainForm->Show();
+			this->Hide();
+		}
+		else if (userRole == 3) {
+			MessageBox::Show("Login successful! Welcome Student.");
+			MainForm^ mainForm = gcnew MainForm();
+			mainForm->Show();
+			this->Hide();
+		}
+		else {
+			MessageBox::Show("Unrecognized role.");
+			this->Close();
+		}
+	}
+	else {
 		MessageBox::Show("Invalid username or password!");
 	}
+
+	sqlRd->Close();
+	sqlConn->Close();
+	sqlCmd->Parameters->Clear();
 }
 };
 
